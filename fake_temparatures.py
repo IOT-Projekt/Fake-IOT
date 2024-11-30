@@ -58,6 +58,12 @@ def main():
     finally:
         client.loop_stop()  # Stop the network loop
         client.disconnect()
+        
+def on_log(client, userdata, level, buf):
+    print(f"Log: {buf}")
+
+client.on_log = on_log
+
 
 if __name__ == "__main__":
     mqtt.Client.connected_flag = False

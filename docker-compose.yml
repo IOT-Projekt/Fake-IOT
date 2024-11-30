@@ -13,6 +13,8 @@ services:
       context: .
     depends_on:
       - mosquitto
+    ports:
+      - "1884:1883"
     networks:
       - mqtt-network
 
