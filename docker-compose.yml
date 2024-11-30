@@ -1,0 +1,21 @@
+---
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - "1883:1883"
+    networks:
+      - mqtt-network
+
+  iot-temperature-simulator:
+    build:
+      context: .
+    depends_on:
+      - mosquitto
+    networks:
+      - mqtt-network
+
+networks:
+  mqtt-network:
+    driver: bridge
