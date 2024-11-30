@@ -1,23 +1,6 @@
----
+version: "3.8"
 services:
-  mosquitto:
-    image: eclipse-mosquitto
-    container_name: mosquitto
-    ports:
-      - "1883:1883"
-    networks:
-      - mqtt-network
-
-  iot-temperature-simulator:
-    build:
-      context: .
-    depends_on:
-      - mosquitto
-    ports:
-      - "1884:1883"
-    networks:
-      - mqtt-network
-
-networks:
-  mqtt-network:
-    driver: bridge
+  fake-iot:
+    image: iot-temperature-simulator:latest
+    deploy:
+      replicas: 10
