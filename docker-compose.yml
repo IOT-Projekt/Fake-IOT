@@ -2,5 +2,7 @@ version: "3.8"
 services:
   fake-iot:
     image: iot-temperature-simulator:latest
+    environment:
+      - 'BROKER_IP=192.168.178.146' # CHANGE IP OF YOUR BROKER
     deploy:
       replicas: 10

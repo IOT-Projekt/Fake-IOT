@@ -1,11 +1,16 @@
 import time
 import random
 import paho.mqtt.client as mqtt
+import os
 
-BROKER = "mosquitto"  # Broker hostname (use "localhost" if not using Docker)
+# Access the BROKER_IP environment variable
+BROKER = os.getenv('BROKER_IP', 'localhost')  # Default to 'localhost' if the var is not set
+
+# BROKER = "192.168.178.146"  # Use "localhost" if running the script outside Docker
 PORT = 1883
 TOPIC = "iot/devices/temperature"
-CLIENT_ID = "fake-temp-device-001"
+CLIENT_ID = "fake-temp-device-" + str(random.randint(1, 1000))
+
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -22,6 +27,9 @@ def generate_temperature():
     """Simulates temperature readings."""
     return round(random.uniform(-10, 40), 2)
 
+def on_log(client, userdata, level, buf):
+    print(f"Log: {buf}")
+
 def main():
     # Create MQTT client
     client = mqtt.Client(CLIENT_ID)
@@ -29,6 +37,7 @@ def main():
     # Bind callbacks
     client.on_connect = on_connect
     client.on_publish = on_publish
+    client.on_log = on_log
 
     # Connect to the broker
     try:
@@ -58,12 +67,6 @@ def main():
     finally:
         client.loop_stop()  # Stop the network loop
         client.disconnect()
-        
-def on_log(client, userdata, level, buf):
-    print(f"Log: {buf}")
-
-client.on_log = on_log
-
 
 if __name__ == "__main__":
     mqtt.Client.connected_flag = False

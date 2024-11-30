@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose MQTT port (optional for external communication)
-EXPOSE 1883
+#EXPOSE 1883
 
 # Run the Python script
-CMD ["python", "fake_temparatures.py"]
+CMD ["python3", "fake_temparatures.py"]
