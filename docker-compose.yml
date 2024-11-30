@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   fake-iot:
-    image: iot-temperature-simulator:latest
+    image: svenschmidt1502/iot-temperature-simulator:latest
     environment:
       - 'BROKER_IP=mosquittobroker.westeurope.cloudapp.azure.com' # CHANGE IP OF YOUR BROKER
     deploy:
