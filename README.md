@@ -5,13 +5,11 @@ The Fake IoT Device Simulator is a tool designed to emulate IoT device data for 
 ## Features
 
 - Generates simulated IoT data.
-- Saves data in **CSV** or **JSON** formats.
 - Sends data using the **MQTT** protocol.
 
 ## Project Structure
 
 - **`src/`**: Contains Python scripts.
-- **`data/`**: Stores generated data.
 - **`config/`**: Configuration file for project settings.
 
 ## Requirements
