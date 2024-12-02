@@ -11,6 +11,9 @@ PORT = 1883
 TOPIC = "iot/devices/temperature"
 CLIENT_ID = "fake-temp-device-" + str(random.randint(1, 1000))
 
+# Access the MQTT username and password from environment variables
+MQTT_USERNAME = os.getenv('MQTT_USERNAME', 'your_username')
+MQTT_PASSWORD = os.getenv('MQTT_PASSWORD', 'your_password')
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -33,6 +36,10 @@ def on_log(client, userdata, level, buf):
 def main():
     # Create MQTT client
     client = mqtt.Client(CLIENT_ID)
+    client.connected_flag = False  # Create flag in client
+
+    # Set username and password
+    client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)
 
     # Bind callbacks
     client.on_connect = on_connect
@@ -50,24 +57,22 @@ def main():
         print(f"Failed to connect to MQTT broker: {e}")
         return
 
-    # Start publishing temperature readings
+    # Publish temperature readings
     try:
         while True:
             temperature = generate_temperature()
-            payload = f'{{"temperature": {temperature}}}'
-            result = client.publish(TOPIC, payload, qos=1)  # Use QoS 1 for acknowledgment
-            status = result.rc
+            result = client.publish(TOPIC, temperature)
+            status = result[0]
             if status == 0:
-                print(f"Published: {payload} to topic: {TOPIC}")
+                print(f"Sent `{temperature}` to topic `{TOPIC}`")
             else:
-                print(f"Failed to publish message to topic {TOPIC}, return code {status}")
-            time.sleep(2)  # Delay between readings
+                print(f"Failed to send message to topic {TOPIC}")
+            time.sleep(5)
     except KeyboardInterrupt:
-        print("Stopping...")
+        print("Exiting...")
     finally:
-        client.loop_stop()  # Stop the network loop
+        client.loop_stop()
         client.disconnect()
 
 if __name__ == "__main__":
-    mqtt.Client.connected_flag = False
     main()
