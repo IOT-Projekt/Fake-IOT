@@ -1,7 +1,7 @@
 ---
 services:
   fake-iot:
-    image: iot-temperature-simulator:latest
+    image: svenschmidt1502/iot-temperature-simulator:latest
     environment:
       - 'BROKER_IP=${BROKER_IP}' # CHANGE IP OF YOUR BROKER
       - 'MQTT_USERNAME=${MQTT_USERNAME}' # CHANGE USERNAME OF YOUR BROKER
