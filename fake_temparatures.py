@@ -8,7 +8,7 @@ BROKER = os.getenv('BROKER_IP', 'localhost')  # Default to 'localhost' if the va
 
 # BROKER = "192.168.178.146"  # Use "localhost" if running the script outside Docker
 PORT = 1883
-TOPIC = "iot/devices/temperature"
+TOPIC = os.getenv('TOPIC', "TOPIC NOT FOUND")
 CLIENT_ID = "fake-temp-device-" + str(random.randint(1, 1000))
 
 # Access the MQTT username and password from environment variables
