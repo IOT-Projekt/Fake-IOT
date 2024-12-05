@@ -5,6 +5,7 @@ import math
 import signal
 import logging
 import paho.mqtt.client as mqtt
+import json 
 
 # Configure logging for Docker (stdout)
 logging.basicConfig(
@@ -122,9 +123,18 @@ def main():
     try:
         while RUNNING:
             temperature = simulate_temperature()
-            result = client.publish(TOPIC, temperature)
+            timestamp = int(time.time())  # Current Unix timestamp (seconds)
+
+            # Create JSON payload with device_id
+            payload = json.dumps({
+                "device_id": DEVICE_ID,
+                "temperature": temperature,
+                "timestamp": timestamp
+            })
+
+            result = client.publish(TOPIC, payload)
             if result[0] == 0:
-                logging.info(f"Sent `{temperature}` to topic `{TOPIC}`")
+                logging.info(f"Sent `{payload}` to topic `{TOPIC}`")
             else:
                 logging.error(f"Failed to send message to topic `{TOPIC}`")
             time.sleep(5)  # Adjust interval as needed
