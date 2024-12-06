@@ -127,7 +127,7 @@ def main():
 
             # Create JSON payload with device_id
             payload = json.dumps({
-                "device_id": DEVICE_ID,
+                "device_id": client_id,
                 "temperature": temperature,
                 "timestamp": timestamp
             })
