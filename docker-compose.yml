@@ -8,4 +8,4 @@ services:
       - 'MQTT_PASSWORD=${MQTT_PASSWORD}' # CHANGE PASSWORD OF YOUR BROKER
       - 'TOPIC=${TOPIC}'
     deploy:
-      replicas: 10
+      replicas: 1
