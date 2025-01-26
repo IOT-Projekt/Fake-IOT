@@ -1,11 +1,15 @@
 ---
 services:
   fake-iot:
-    image: svenschmidt1502/iot-temperature-simulator:latest
+    image: svenschmidt1502/iot-motion-simulator:latest
+    stdin_open: true
+    tty: true
     environment:
-      - 'BROKER_IP=${BROKER_IP}' # CHANGE IP OF YOUR BROKER
-      - 'MQTT_USERNAME=${MQTT_USERNAME}' # CHANGE USERNAME OF YOUR BROKER
-      - 'MQTT_PASSWORD=${MQTT_PASSWORD}' # CHANGE PASSWORD OF YOUR BROKER
+      - 'BROKER_IP=${BROKER_IP}' 
+      - 'MQTT_USERNAME=${MQTT_USERNAME}' 
+      - 'MQTT_PASSWORD=${MQTT_PASSWORD}' 
+      - 'CLIENT_ID=${CLIENT_ID}'
+      - 'PORT=${PORT}'
       - 'TOPIC=${TOPIC}'
     deploy:
       replicas: 1

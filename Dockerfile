@@ -4,14 +4,11 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copy the Python script and requirements
-COPY fake_temparatures.py .
+COPY fake_motion_sensor.py .
 COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose MQTT port (optional for external communication)
-#EXPOSE 1883
-
 # Run the Python script
-CMD ["python3", "fake_temparatures.py"]
+CMD ["python3", "fake_motion_sensor.py"]
