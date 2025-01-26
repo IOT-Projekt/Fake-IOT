@@ -32,5 +32,5 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: svenschmidt1502/iot-temperature-simulator:latest
+          tags: svenschmidt1502/iot-motion-simulator:latest
 
